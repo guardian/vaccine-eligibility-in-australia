@@ -25,6 +25,14 @@ $demographic: #E4185D;
     	display: none;
     }
 
+    [data-key="work-in-healthcare"]{
+    	display: none;
+    }
+
+    [data-key="underlying-medical-conditions"]{
+    	display: none;
+    }
+
     #app {
         background-color: $background;
 
