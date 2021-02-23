@@ -16,15 +16,11 @@ function app(data) {
 
 	var database = data
 
-	console.log(database)
-
     var db = { 
 
         current : database.elements[0],
 
         typeSetter: (type) => {
-
-        	console.log(type);
 
             return (type==='disposition') ? false : true ;
 
@@ -32,11 +28,7 @@ function app(data) {
 
     }
 
-	var GTMTag = {
-
-		"age" : false
-
-	}
+	var GTMTag = {}
 
     var ractive = new Ractive({
         el: '#app',
@@ -62,21 +54,13 @@ function app(data) {
 
     	db.current = database.elements.find(item => { return item.id === findQ}) ;
 
-    	console.log(db.current.type)
-
     	if (db.current.phase_name) {
 
-    		console.log(db.current.phase_name)
-
     		if (contains(database.activePhases, db.current.phase_name)) {
-
-    			console.log("Yes")
 
     			next(db.current.id, 1)
 
     		} else {
-
-    			console.log("No")
 
     			next(db.current.id, 0)
 
@@ -85,8 +69,6 @@ function app(data) {
     	} else {
 
 			if (GTMTag[db.current.GTMTag]) {
-
-				console.log("You have already answered this question")
 
 				next(db.current.id, GTMTag[db.current.GTMTag])
 

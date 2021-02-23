@@ -1,7 +1,7 @@
 @import "fonts";
 @import "mq";
 @import "palette";
-// @import "enhancer";
+//@import "embed";
 
 .interactive-atom {
     margin: 0;
@@ -10,7 +10,7 @@
 
 $primary: #FB4F3E;
 $highlight: #65C3D7;
-$background: #FEF1E8;
+$background: #a7eede;
 $demographic: #E4185D;
 
 
@@ -20,6 +20,10 @@ $demographic: #E4185D;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+
+    [data-key="residents-of-aged-care-or-disability-care"] {
+    	display: none;
+    }
 
     #app {
         background-color: $background;
