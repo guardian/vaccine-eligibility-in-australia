@@ -1,0 +1,40 @@
+
+{{#current}}
+  <section class="question_block_container">
+
+    <div class="question_block">
+
+      <div class="question_box">
+
+          <h3><div class="specifics">{{{title}}}</div></h3>    
+
+          {{#if text_markup}}    
+
+          <div>{{{text_markup}}}</div>
+
+          {{/if}}
+
+      </div>
+
+      {{#if typeSetter(type)}}
+
+        <div class="options_box" data-id="{{id}}">
+
+          {{#each options}}
+
+              <div on-click="['answer', value]" class="option">
+
+                  <span>{{{text}}}</span>
+
+              </div>
+
+          {{/each}}
+
+        </div>
+
+      {{/if}}
+
+    </div>
+
+  </section>
+{{/current}}
