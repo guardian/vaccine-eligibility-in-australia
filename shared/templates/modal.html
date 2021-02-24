@@ -1,0 +1,19 @@
+  <div class="modal-background">
+    <div class="modal-outer">
+      <div id="about" class="modal">
+        {{#if isApp}}<div class="app_space_bar"></div>{{/if}}
+        <div class="modal-header">
+          <div on-tap='close' class="close"></div>
+        </div>
+        <div class="modal-content">
+
+          {{{info}}}
+
+          <a on-tap='close' class="action-button">Close</a>
+
+          <div class="buffer"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>

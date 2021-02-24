@@ -3,8 +3,11 @@
 import template from "shared/templates/template.html"
 import Ractive from 'ractive'
 import contains from "shared/js/contains"
-//import ractiveFade from 'ractive-transitions-fade'
-//import ractiveTap from 'ractive-events-tap'
+import infodal from 'shared/templates/modal.html'
+import Modal from 'shared/js/modal'
+import ractiveFade from 'ractive-transitions-fade'
+import ractiveTap from 'ractive-events-tap'
+import { $, $$, round, numberWithCommas, wait, getDimensions } from 'shared/js/util'
 
 fetch("https://interactive.guim.co.uk/embed/aus/2021/02/vaccine-eligibility-in-australia/rules.json")
     .then(res => res.json())
@@ -15,6 +18,24 @@ fetch("https://interactive.guim.co.uk/embed/aus/2021/02/vaccine-eligibility-in-a
 function app(data) {
 
 	var database = data
+
+	console.log(data)
+
+    var isIframe = (parent !== window) ? false  : true ;
+
+    var stage = (isIframe) ? parent.document : document ; 
+
+    if (isIframe) {
+    	console.log("Inside iframe")
+    } else {
+    	console.log("Not inside iframe")
+    }
+
+	var elem = stage.createElement('div');
+
+	elem.classList.add("interactive-container");
+
+	stage.body.appendChild(elem);
 
     var db = { 
 
@@ -76,7 +97,51 @@ function app(data) {
 
 				ractive.set(db)
 
+				document.querySelectorAll('[data-key]').forEach(item => {
+				  	item.addEventListener('click', event => {
+				    	modus(item.getAttribute("data-key"))
+					})
+				})
+
 			}
     	}
+    }
+
+    function modus(key) {
+
+    	var info = database.stateDefinitions.default[key]
+
+        var modal = new Modal({
+            transitions: { fade: ractiveFade },
+            events: { tap: ractiveTap },
+            template: infodal,
+            data: {
+            	info : info,
+                isApp: (window.location.origin === "file://" || window.location.origin === null) ? true : false 
+            }
+        });
+
+        var isAndroidApp = (window.location.origin === "file://" && /(android)/i.test(navigator.userAgent) ) ? true : false ;
+
+        var el = $('.modal-content');
+
+        el.ontouchstart = function(e) {
+
+            if (isAndroidApp && window.top.GuardianJSInterface.registerRelatedCardsTouch) {
+
+				window.top.GuardianJSInterface.registerRelatedCardsTouch(true);
+
+            }
+        };
+
+        el.ontouchend = function(e) {
+
+            if (isAndroidApp && window.top.GuardianJSInterface.registerRelatedCardsTouch) {
+
+				window.top.GuardianJSInterface.registerRelatedCardsTouch(false);
+
+            }
+
+        };
     }
 }

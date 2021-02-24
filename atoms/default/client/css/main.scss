@@ -1,11 +1,19 @@
 @import "fonts";
 @import "mq";
 @import "palette";
-//@import "embed";
+@import "modal";
 
 .interactive-atom {
     margin: 0;
     padding: 0;
+}
+
+.interactive-container {
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 99999999999;
 }
 
 $primary: #FB4F3E;
@@ -21,17 +29,26 @@ $demographic: #E4185D;
     margin: 0;
     padding: 0;
 
-    [data-key="residents-of-aged-care-or-disability-care"] {
-    	display: none;
+    [data-key]:after {
+        
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        content: "i";
+        border-radius: 50%;
+        position: absolute;
+        margin-left: 10px;
+        background-size: cover;
+        /*background-image: url("<%= path %>/info.svg");*/
+        border: solid 1px black;
+        background-repeat: no-repeat;
+        background-size: 20px 20px;
+        font-style: italic;
+        text-align: center;
+        line-height: 20px;
+        font-size: 12px;
     }
 
-    [data-key="work-in-healthcare"]{
-    	display: none;
-    }
-
-    [data-key="underlying-medical-conditions"]{
-    	display: none;
-    }
 
     #app {
         background-color: $background;
@@ -47,8 +64,7 @@ $demographic: #E4185D;
         .section-05 {
             color: $demographic;
         }
-
-
+        
         .intro_box {
             font-family: "Guardian Egyptian Web", Georgia, serif;
             font-weight: 300;
